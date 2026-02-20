@@ -26,9 +26,17 @@ Open [http://localhost:3000](http://localhost:3000). Go to `/dashboard` for the 
 
 ## Deploy on Vercel
 
-1. Push this repo to GitHub (e.g. [anmolpandita98-hash/PPE](https://github.com/anmolpandita98-hash/PPE)).
-2. In [Vercel](https://vercel.com), import the GitHub repo.
-3. Leave build settings as default (Framework: Next.js, Root Directory: `.`).
-4. Deploy. The app will run at `https://your-project.vercel.app`.
+Code is in GitHub: [anmolpandita98-hash/PPE](https://github.com/anmolpandita98-hash/PPE).
 
-**Note:** Camera access requires HTTPS. Vercel provides HTTPS by default.
+1. Go to [vercel.com](https://vercel.com) and sign in (use GitHub).
+2. Click **Add New** → **Project**.
+3. Import **anmolpandita98-hash/PPE** from your GitHub.
+4. Leave settings as default:
+   - **Framework Preset:** Next.js  
+   - **Root Directory:** `.`  
+   - **Build Command:** `next build`  
+   - **Output Directory:** (default)
+5. Click **Deploy**. Wait for the build to finish.
+6. Your app will be live at `https://ppe-xxxx.vercel.app`. Open it and go to **/dashboard** for the Live AI Detection view.
+
+**Note:** Camera access requires HTTPS; Vercel provides it. Future pushes to `main` will trigger automatic redeploys.
