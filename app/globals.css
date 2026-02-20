@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --surface: #0f1419;
+  --card: #1a2332;
+  --accent: #00d4aa;
+  --danger: #ef4444;
+  --warn: #f59e0b;
+}
+
+body {
+  background: var(--surface);
+  color: #e2e8f0;
+  min-height: 100vh;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
