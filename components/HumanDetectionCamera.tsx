@@ -28,6 +28,13 @@ interface ViolationLog {
   count: number; // Number of times this violation was logged
 }
 
+// COCO-SSD model prediction shape
+interface CocoSsdPrediction {
+  bbox: [number, number, number, number];
+  class: string;
+  score: number;
+}
+
 export function HumanDetectionCamera() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -407,7 +414,7 @@ export function HumanDetectionCamera() {
       // COCO-SSD classes that might indicate microphones (excluding phones)
       const microphoneLikeClasses = ['remote', 'mouse', 'keyboard'];
       
-      predictions.forEach(pred => {
+      predictions.forEach((pred: CocoSsdPrediction) => {
         const [x, y, width, height] = pred.bbox;
         const distance = estimateDistance(height, canvas.height);
         
@@ -623,14 +630,15 @@ export function HumanDetectionCamera() {
 
           // Find if this detection overlaps with any already-active violation of same type
           let matchedId: string | null = null;
-          for (const [vid, data] of activeViolations.entries()) {
-            if (data.type !== detection.violation) continue;
+          Array.from(activeViolations.entries()).some(([vid, data]) => {
+            if (data.type !== detection.violation) return false;
             const overlap = bboxOverlapRatio(bbox, data.bbox);
             if (overlap >= OVERLAP_THRESHOLD) {
               matchedId = vid;
-              break;
+              return true;
             }
-          }
+            return false;
+          });
 
           if (matchedId !== null) {
             // Same person still in frame - reuse timestamp, never re-clock
